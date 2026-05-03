@@ -1,210 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aprendiendo con IA — Mi diario digital</title>
+  <title>Learning with AI — My Digital Diary</title>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
-
-  <!-- GoatCounter — reemplaza "TUNOMBRE" con tu usuario de goatcounter.com -->
+  <link rel="stylesheet" href="css/style.css">
   <script data-goatcounter="https://TUNOMBRE.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      /* Lakers purple */
-      --p50:  #F3EFFE;
-      --p100: #D9CCFA;
-      --p200: #BBA8F5;
-      --p400: #8B5CF6;
-      --p600: #6D28D9;
-      --p800: #4C1D95;
-      --p900: #2E1065;
-      /* Lakers gold */
-      --gold:        #FDB927;
-      --gold-dark:   #C9921A;
-      --gold-deeper: #8A6200;
-      --gold-light:  #FEF3C7;
-      --gold-pale:   #FFFBF0;
-      /* Text */
-      --text:       #1a1018;
-      --text-muted: #6B5B7B;
-      /* Backgrounds — gold replaces white */
-      --bg:      #FDB927;   /* gold as main background */
-      --bg-soft: #FEF3C7;   /* pale gold as surface */
-      --border:  #E8C96A;   /* gold border */
-    }
-
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      background: var(--gold-pale);
-      line-height: 1.7;
-      font-size: 16px;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--p900);
-      border-bottom: 3px solid var(--gold);
-    }
-    .nav-inner {
-      max-width: 860px; margin: 0 auto; padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between; height: 62px;
-    }
-    .nav-logo {
-      font-family: 'Lora', serif; font-weight: 600; font-size: 1.1rem;
-      color: var(--gold); text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .nav-logo-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
-    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a { text-decoration: none; font-size: 0.88rem; color: rgba(253,185,39,0.65); transition: color 0.2s; }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-cta { background: var(--gold) !important; color: var(--p900) !important; padding: 8px 18px; border-radius: 7px; font-weight: 600 !important; }
-    .nav-cta:hover { background: #FFD060 !important; }
-
-    /* Visit badge */
-    .visit-badge {
-      display: flex; align-items: center; gap: 6px;
-      background: rgba(253,185,39,0.15); border: 1px solid rgba(253,185,39,0.3);
-      padding: 5px 12px; border-radius: 100px; font-size: 0.76rem; color: var(--gold);
-    }
-    .visit-badge svg { width: 12px; height: 12px; fill: var(--gold); }
-    #visit-count { font-weight: 600; }
-
-    /* ── HEADER ── */
-    .header-wrap { background: var(--p900); border-bottom: 4px solid var(--gold); }
-    .header { max-width: 860px; margin: 0 auto; padding: 4.5rem 2rem 3.5rem; }
-    .header-tag {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(253,185,39,0.15); border: 1px solid rgba(253,185,39,0.35);
-      color: var(--gold); font-size: 0.73rem; font-weight: 500;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 5px 14px; border-radius: 100px; margin-bottom: 1.4rem;
-    }
-    .header h1 {
-      font-family: 'Lora', serif; font-size: 2.8rem; font-weight: 600;
-      line-height: 1.18; letter-spacing: -0.02em; color: var(--gold); margin-bottom: 1rem;
-    }
-    .header h1 em { font-style: italic; color: #fff; }
-    .header-sub { font-size: 1rem; color: rgba(253,185,39,0.7); max-width: 540px; line-height: 1.85; margin-bottom: 2rem; }
-    .header-meta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: rgba(255,255,255,0.45); }
-    .meta-dot { width: 4px; height: 4px; background: rgba(253,185,39,0.4); border-radius: 50%; }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
-    .btn { display: inline-block; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
-    .btn-primary { background: var(--gold); color: var(--p900); }
-    .btn-primary:hover { background: #FFD060; }
-    .btn-outline { background: transparent; color: var(--gold); border: 1.5px solid rgba(253,185,39,0.45); }
-    .btn-outline:hover { background: rgba(253,185,39,0.1); border-color: var(--gold); }
-
-    /* ── LAYOUT ── */
-    hr.divider { border: none; border-top: 1px solid var(--border); max-width: 860px; margin: 0 auto; }
-    .main { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem; display: grid; grid-template-columns: 1fr 250px; gap: 2.5rem; align-items: start; }
-    .label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--p600); margin-bottom: 0.5rem; }
-    .section-title { font-family: 'Lora', serif; font-size: 1.7rem; font-weight: 600; color: var(--text); letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-
-    /* ── POSTS ── */
-    .posts-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-    .filter-tabs { display: flex; gap: 0.4rem; }
-    .filter-tab { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 4px 12px; border-radius: 100px; font-size: 0.76rem; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; }
-    .filter-tab.active, .filter-tab:hover { background: var(--p800); border-color: var(--p800); color: var(--gold); }
-    .posts { display: grid; gap: 1.2rem; }
-
-    .post-card { border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem; background: var(--bg); transition: all 0.2s; cursor: pointer; }
-    .post-card:hover { border-color: var(--p400); box-shadow: 0 4px 20px rgba(46,16,101,0.1); transform: translateY(-1px); }
-    .post-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.8rem; }
-    .post-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .post-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
-    .tag-ia      { background: var(--p100); color: var(--p800); border: 1px solid var(--p200); }
-    .tag-web     { background: var(--gold-light); color: var(--gold-deeper); border: 1px solid var(--gold); }
-    .tag-tools   { background: var(--p50); color: var(--p600); border: 1px solid var(--p100); }
-    .tag-reflexion { background: var(--gold-pale); color: var(--gold-deeper); border: 1px solid var(--gold-light); }
-    .post-date { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; flex-shrink: 0; }
-    .post-title { font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 600; line-height: 1.35; margin-bottom: 0.5rem; color: var(--p900); }
-    .post-excerpt { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
-    .post-footer { display: flex; align-items: center; justify-content: space-between; }
-    .post-read { font-size: 0.8rem; color: var(--p600); font-weight: 600; }
-    .post-mins { font-size: 0.76rem; color: var(--text-muted); }
-
-    /* ── FULL POST ── */
-    .post-full { display: none; }
-    .post-full.active { display: block; }
-    .posts-list.hidden { display: none; }
-    .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--p600); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; margin-bottom: 1.5rem; padding: 0; font-weight: 600; transition: color 0.2s; }
-    .back-btn:hover { color: var(--p900); }
-    .full-post-title { font-family: 'Lora', serif; font-size: 1.9rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; color: var(--p900); margin-bottom: 1rem; }
-    .full-post-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; }
-    .full-post-body { font-size: 1rem; color: var(--text-muted); line-height: 1.9; }
-    .full-post-body p { margin-bottom: 1.2rem; }
-    .full-post-body h3 { font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 600; color: var(--p900); margin: 1.8rem 0 0.6rem; }
-    .full-post-body ul { padding-left: 1.4rem; margin-bottom: 1.2rem; }
-    .full-post-body li { margin-bottom: 0.4rem; }
-    .full-post-body code { background: var(--p50); color: var(--p800); padding: 2px 7px; border-radius: 5px; font-size: 0.88em; font-family: monospace; }
-    .full-post-body blockquote { border-left: 3px solid var(--gold); padding-left: 1.2rem; margin: 1.5rem 0; font-style: italic; font-family: 'Lora', serif; color: var(--p900); }
-    .lesson-box { background: var(--gold-light); border: 1px solid var(--gold); border-radius: 10px; padding: 1.2rem 1.4rem; margin: 1.5rem 0; }
-    .lesson-box-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-deeper); margin-bottom: 0.5rem; }
-    .lesson-box p { color: var(--p900); font-size: 0.92rem; margin: 0; }
-
-    /* ── SIDEBAR ── */
-    .sidebar { display: grid; gap: 1.2rem; position: sticky; top: 80px; }
-    .sidebar-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.3rem; }
-    .sidebar-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: var(--p600); margin-bottom: 1rem; }
-    .progress-item { margin-bottom: 0.9rem; }
-    .progress-item:last-child { margin-bottom: 0; }
-    .progress-label { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 5px; }
-    .progress-label span:first-child { color: var(--p900); }
-    .progress-label span:last-child { color: var(--p600); font-weight: 600; }
-    .progress-bar { height: 6px; background: var(--p100); border-radius: 100px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--p600), var(--gold)); border-radius: 100px; }
-    .tools-list { display: grid; gap: 0.6rem; }
-    .tool-item { display: flex; align-items: center; gap: 0.8rem; font-size: 0.84rem; color: var(--text-muted); }
-    .tool-icon { width: 28px; height: 28px; border-radius: 7px; background: var(--p50); border: 1px solid var(--p100); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-    .stat-box { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 9px; padding: 0.9rem; text-align: center; }
-    .stat-num { font-family: 'Lora', serif; font-size: 1.4rem; font-weight: 600; color: var(--p800); display: block; }
-    .stat-lbl { font-size: 0.69rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-    .sobre-mi-text { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.8rem; }
-    .sobre-mi-text:last-child { margin-bottom: 0; }
-
-    /* ── FOOTER ── */
-    footer { background: var(--p900); border-top: 4px solid var(--gold); }
-    .footer-inner { max-width: 860px; margin: 0 auto; padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .footer-brand { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--gold); }
-    .footer-sub { font-size: 0.76rem; color: rgba(253,185,39,0.4); margin-top: 2px; }
-    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
-    .footer-links a { font-size: 0.82rem; color: rgba(253,185,39,0.55); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--gold); }
-    .footer-copy { font-size: 0.76rem; color: rgba(253,185,39,0.25); }
-
-    @media (max-width: 680px) {
-      .main { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
-      .sidebar { position: static; }
-      .header h1 { font-size: 2rem; }
-      .header { padding: 3rem 1.5rem 2.5rem; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo" onclick="showList()">
+    <a href="index.html" class="nav-logo">
       <span class="nav-logo-dot"></span> Aprendiendo con IA
     </a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="#inicio" onclick="showList()">Inicio</a></li>
-        <li><a href="#sobre-mi">Sobre mí</a></li>
-        <li><a href="#contact" class="nav-cta">Contacto</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="posts.html">Posts</a></li>
+        <li><a href="about.html">About Me</a></li>
       </ul>
       <div class="visit-badge">
         <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
@@ -214,280 +30,75 @@
   </div>
 </nav>
 
-<!-- HEADER -->
-<div class="header-wrap" id="inicio">
+<div class="header-wrap">
   <div class="header">
     <div class="header-tag">📖 Diario de aprendizaje</div>
     <h1>Mi viaje aprendiendo<br><em>inteligencia artificial</em></h1>
     <p class="header-sub">No soy programador ni experto. Solo una persona curiosa que documenta en tiempo real lo que aprende, lo que falla, y lo que descubre usando IA en el día a día.</p>
     <div class="header-meta">
-      <span class="meta-item">📍 Italia</span>
+      <span class="meta-item">📍 Germany</span>
       <span class="meta-dot"></span>
-      <span class="meta-item">✍️ Empezado en 2025</span>
+      <span class="meta-item">✍️ EST. 2025</span>
       <span class="meta-dot"></span>
       <span class="meta-item">🤖 Claude, ChatGPT, Perplexity</span>
     </div>
     <div class="hero-actions">
-      <a href="#posts-list" class="btn btn-primary">Leer el blog</a>
-      <a href="#sobre-mi" class="btn btn-outline">Sobre mí</a>
+      <a href="posts.html" class="btn btn-primary">Read Posts</a>
+      <a href="about.html" class="btn btn-outline">About Me</a>
     </div>
   </div>
 </div>
 
-<!-- MAIN -->
-<div class="main">
+<section class="categories-section">
+  <div class="categories-inner">
+    <p class="categories-label">Explore</p>
+    <h2 class="categories-title">What's here</h2>
+    <div class="category-cards">
 
-  <!-- POSTS COLUMN -->
-  <div>
-    <div class="posts-list" id="posts-list">
-      <div class="posts-header">
-        <div>
-          <p class="label">Entradas del blog</p>
-        </div>
-        <div class="filter-tabs">
-          <button class="filter-tab active" onclick="filterPosts('todos', this)">Todos</button>
-          <button class="filter-tab" onclick="filterPosts('ia', this)">IA</button>
-          <button class="filter-tab" onclick="filterPosts('web', this)">Web</button>
-          <button class="filter-tab" onclick="filterPosts('tools', this)">Tools</button>
-        </div>
-      </div>
+      <a href="news.html" class="category-card">
+        <span class="category-card-icon">📰</span>
+        <p class="category-card-title">News</p>
+        <p class="category-card-desc">Short takes on what's happening in AI — filtered through the perspective of someone learning it from zero.</p>
+        <span class="category-card-cta">Read news →</span>
+      </a>
 
-      <div class="posts" id="posts-container">
+      <a href="posts.html" class="category-card">
+        <span class="category-card-icon">✍️</span>
+        <p class="category-card-title">Posts</p>
+        <p class="category-card-desc">Long-form entries documenting real experiments, failures, and lessons learned while using AI tools day to day.</p>
+        <span class="category-card-cta">Read posts →</span>
+      </a>
 
-        <div class="post-card" data-tag="web" onclick="openPost('post4')">
-          <div class="post-card-top">
-            <div class="post-tags"><span class="post-tag tag-web">Web</span><span class="post-tag tag-ia">IA</span></div>
-            <span class="post-date">Mayo 2025</span>
-          </div>
-          <p class="post-title">Construí mi primer sitio web con ayuda de Claude — y lo subí a Cloudflare</p>
-          <p class="post-excerpt">Nunca había tocado HTML en serio. Hoy tengo un dominio propio funcionando en Cloudflare Pages, con HTTPS gratis y email de Proton conectado.</p>
-          <div class="post-footer"><span class="post-read">Leer entrada →</span><span class="post-mins">5 min lectura</span></div>
-        </div>
+      <a href="about.html" class="category-card">
+        <span class="category-card-icon">👋</span>
+        <p class="category-card-title">About Me</p>
+        <p class="category-card-desc">Who I am, where I'm coming from, and why I decided to start learning AI in public from scratch.</p>
+        <span class="category-card-cta">Read more →</span>
+      </a>
 
-        <div class="post-card" data-tag="ia" onclick="openPost('post3')">
-          <div class="post-card-top">
-            <div class="post-tags"><span class="post-tag tag-ia">IA</span><span class="post-tag tag-reflexion">Reflexión</span></div>
-            <span class="post-date">Abril 2025</span>
-          </div>
-          <p class="post-title">¿Qué hace a un sitio web auténtico en la era de la IA?</p>
-          <p class="post-excerpt">Cuando la IA puede generar contenido infinito, lo que no se puede copiar es tu historia real. Esto es lo que aprendí pensando en voz alta con Claude.</p>
-          <div class="post-footer"><span class="post-read">Leer entrada →</span><span class="post-mins">4 min lectura</span></div>
-        </div>
-
-        <div class="post-card" data-tag="tools" onclick="openPost('post2')">
-          <div class="post-card-top">
-            <div class="post-tags"><span class="post-tag tag-tools">Tools</span></div>
-            <span class="post-date">Marzo 2025</span>
-          </div>
-          <p class="post-title">Probé 4 herramientas de IA en una semana — esto fue lo que pasó</p>
-          <p class="post-excerpt">ChatGPT, Claude, Gemini y Perplexity. Mismas preguntas, resultados muy diferentes. Mi comparación honesta desde cero.</p>
-          <div class="post-footer"><span class="post-read">Leer entrada →</span><span class="post-mins">6 min lectura</span></div>
-        </div>
-
-        <div class="post-card" data-tag="ia" onclick="openPost('post1')">
-          <div class="post-card-top">
-            <div class="post-tags"><span class="post-tag tag-ia">IA</span></div>
-            <span class="post-date">Febrero 2025</span>
-          </div>
-          <p class="post-title">El día que decidí aprender IA sin saber nada — mi punto de partida</p>
-          <p class="post-excerpt">Todo empezó con una conversación sobre negocios con Claude. Me di cuenta que el mundo estaba cambiando y yo mirando desde afuera.</p>
-          <div class="post-footer"><span class="post-read">Leer entrada →</span><span class="post-mins">3 min lectura</span></div>
-        </div>
-
-      </div>
     </div>
+  </div>
+</section>
 
-    <!-- FULL POSTS -->
-    <div class="post-full" id="post4">
-      <button class="back-btn" onclick="showList()">← Volver al blog</button>
-      <div class="post-tags" style="margin-bottom:1rem;display:flex;gap:0.5rem;"><span class="post-tag tag-web">Web</span><span class="post-tag tag-ia">IA</span></div>
-      <h2 class="full-post-title">Construí mi primer sitio web con ayuda de Claude — y lo subí a Cloudflare</h2>
-      <div class="full-post-meta">
-        <span class="meta-item" style="color:var(--text-muted)">📅 Mayo 2025</span>
-        <span class="meta-dot" style="background:var(--border)"></span>
-        <span class="meta-item" style="color:var(--text-muted)">⏱ 5 min lectura</span>
-      </div>
-      <div class="full-post-body">
-        <p>Hace tres meses no sabía qué era un registro DNS. Hoy tengo un dominio propio, un sitio web funcionando, email profesional con Proton Mail, y todo corriendo en Cloudflare gratis.</p>
-        <h3>El punto de partida</h3>
-        <p>Tenía un dominio comprado en GoDaddy desde hacía meses, sin usar. Lo compré con la vaga idea de "algún día tener mi web". Ese día llegó cuando empecé a hablar con Claude sobre cómo construir algo sin saber programar.</p>
-        <blockquote>"La mejor forma de aprender es tener un proyecto real que te obligue a resolver problemas reales."</blockquote>
-        <h3>Lo que aprendí en el proceso</h3>
-        <p>Primero entendí que necesitaba tres cosas: el dominio (ya lo tenía), hosting (elegí Cloudflare Pages, gratis), y un archivo <code>index.html</code> con el contenido de la web.</p>
-        <p>Lo más complicado fue mover los nameservers de GoDaddy a Cloudflare y luego conectar el email de Proton Mail. Hubo errores de DNS, registros DKIM que no aparecían, y mucha paciencia.</p>
-        <div class="lesson-box">
-          <p class="lesson-box-label">💡 Lección aprendida</p>
-          <p>Cuando mueves los nameservers a Cloudflare, TODOS los registros DNS tienen que vivir ahí — incluyendo los del email. El error más común es olvidarse de importarlos o dejar el proxy naranja activado en los registros de correo.</p>
-        </div>
-        <h3>¿Valió la pena?</h3>
-        <p>Completamente. Ahora entiendo qué es un registro MX, qué hace DKIM, por qué existe HTTPS. No memoricé conceptos — los resolví cuando algo se rompió. Eso es aprender de verdad.</p>
-      </div>
-    </div>
-
-    <div class="post-full" id="post3">
-      <button class="back-btn" onclick="showList()">← Volver al blog</button>
-      <div class="post-tags" style="margin-bottom:1rem;display:flex;gap:0.5rem;"><span class="post-tag tag-ia">IA</span><span class="post-tag tag-reflexion">Reflexión</span></div>
-      <h2 class="full-post-title">¿Qué hace a un sitio web auténtico en la era de la IA?</h2>
-      <div class="full-post-meta">
-        <span class="meta-item" style="color:var(--text-muted)">📅 Abril 2025</span>
-        <span class="meta-dot" style="background:var(--border)"></span>
-        <span class="meta-item" style="color:var(--text-muted)">⏱ 4 min lectura</span>
-      </div>
-      <div class="full-post-body">
-        <p>Le pregunté a Claude directamente: "¿Qué puede tener un sitio web que tú no puedas reemplazar?" La respuesta me hizo pensar durante días.</p>
-        <h3>El internet se está llenando de contenido perfecto</h3>
-        <p>La IA puede escribir artículos, generar imágenes, crear páginas enteras. Todo correcto, todo bien estructurado, todo un poco igual. Cuando todo es perfecto, lo imperfecto se vuelve valioso.</p>
-        <blockquote>"Lo que no se puede falsificar es que tú viviste algo. La IA puede escribir sobre alguien, pero no puede ser alguien."</blockquote>
-        <h3>Lo que sobrevive</h3>
-        <ul>
-          <li>Tu historia real, con nombres y fechas concretas</li>
-          <li>Fotos tuyas en tu espacio real</li>
-          <li>Una opinión que no es para todos</li>
-          <li>Confianza acumulada con personas reales en el tiempo</li>
-          <li>Lo hiper-específico: tu ciudad, tu nicho, tu contexto</li>
-        </ul>
-        <div class="lesson-box">
-          <p class="lesson-box-label">💡 Lección aprendida</p>
-          <p>Este blog existe precisamente por eso. No es el mejor blog sobre IA. Es el único blog sobre cómo YO estoy aprendiendo IA, desde donde estoy, con lo que sé. Eso no se puede copiar.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="post-full" id="post2">
-      <button class="back-btn" onclick="showList()">← Volver al blog</button>
-      <div class="post-tags" style="margin-bottom:1rem;"><span class="post-tag tag-tools">Tools</span></div>
-      <h2 class="full-post-title">Probé 4 herramientas de IA en una semana — esto fue lo que pasó</h2>
-      <div class="full-post-meta">
-        <span class="meta-item" style="color:var(--text-muted)">📅 Marzo 2025</span>
-        <span class="meta-dot" style="background:var(--border)"></span>
-        <span class="meta-item" style="color:var(--text-muted)">⏱ 6 min lectura</span>
-      </div>
-      <div class="full-post-body">
-        <p>Una semana, cuatro herramientas, las mismas preguntas para todas. Mi experimento poco científico pero muy honesto.</p>
-        <h3>Las herramientas</h3>
-        <ul>
-          <li>ChatGPT (GPT-4o) — el más conocido, muy versátil</li>
-          <li>Claude (Sonnet) — mejor para textos largos y razonamiento</li>
-          <li>Gemini — buena integración con Google</li>
-          <li>Perplexity — el mejor para buscar información actual</li>
-        </ul>
-        <h3>Mi conclusión honesta</h3>
-        <p>No hay una herramienta que gane en todo. ChatGPT es el más flexible. Claude es el que mejor entiende lo que quiero decir cuando no lo digo perfectamente. Perplexity es insustituible para noticias recientes.</p>
-        <div class="lesson-box">
-          <p class="lesson-box-label">💡 Lección aprendida</p>
-          <p>El error es buscar "la mejor IA". La pregunta correcta es "la mejor IA para esta tarea específica". Son herramientas, no religiones.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="post-full" id="post1">
-      <button class="back-btn" onclick="showList()">← Volver al blog</button>
-      <div class="post-tags" style="margin-bottom:1rem;"><span class="post-tag tag-ia">IA</span></div>
-      <h2 class="full-post-title">El día que decidí aprender IA sin saber nada — mi punto de partida</h2>
-      <div class="full-post-meta">
-        <span class="meta-item" style="color:var(--text-muted)">📅 Febrero 2025</span>
-        <span class="meta-dot" style="background:var(--border)"></span>
-        <span class="meta-item" style="color:var(--text-muted)">⏱ 3 min lectura</span>
-      </div>
-      <div class="full-post-body">
-        <p>No tengo formación técnica. No sé programar. Trabajo en algo completamente diferente. Y aun así decidí que no podía seguir ignorando lo que estaba pasando con la inteligencia artificial.</p>
-        <h3>El momento que cambió todo</h3>
-        <p>Fue una conversación casual con Claude sobre ideas de negocios. En 20 minutos me dio más ideas útiles y mejor razonadas que meses de búsquedas en Google. Me quedé pensando: si esto existe, ¿qué más puedo hacer con ello?</p>
-        <blockquote>"El mejor momento para empezar era hace un año. El segundo mejor momento es hoy."</blockquote>
-        <div class="lesson-box">
-          <p class="lesson-box-label">💡 Lección aprendida</p>
-          <p>Empezar sin saber nada no es una desventaja — es el punto de partida más honesto. Todo lo que aprenda desde cero es real y verificable.</p>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- end posts column -->
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-
-    <div class="sidebar-card">
-      <p class="sidebar-title">📊 Mi progreso</p>
-      <div class="progress-item">
-        <div class="progress-label"><span>Prompting</span><span>70%</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-label"><span>HTML / CSS</span><span>45%</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-label"><span>DNS / Hosting</span><span>55%</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:55%"></div></div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-label"><span>Automatización</span><span>20%</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-label"><span>Diseño con IA</span><span>35%</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:35%"></div></div>
-      </div>
-    </div>
-
-    <div class="sidebar-card">
-      <p class="sidebar-title">🛠 Herramientas que uso</p>
-      <div class="tools-list">
-        <div class="tool-item"><div class="tool-icon">🤖</div> Claude (Anthropic)</div>
-        <div class="tool-item"><div class="tool-icon">💬</div> ChatGPT</div>
-        <div class="tool-item"><div class="tool-icon">☁️</div> Cloudflare Pages</div>
-        <div class="tool-item"><div class="tool-icon">📧</div> Proton Mail</div>
-        <div class="tool-item"><div class="tool-icon">🐙</div> GitHub</div>
-        <div class="tool-item"><div class="tool-icon">🔍</div> Perplexity</div>
-      </div>
-    </div>
-
-    <div class="sidebar-card">
-      <p class="sidebar-title">📈 Estadísticas</p>
-      <div class="stats-grid">
-        <div class="stat-box"><span class="stat-num">4</span><span class="stat-lbl">Posts</span></div>
-        <div class="stat-box"><span class="stat-num" id="sidebar-visits">...</span><span class="stat-lbl">Visitas</span></div>
-        <div class="stat-box"><span class="stat-num">3</span><span class="stat-lbl">Meses</span></div>
-        <div class="stat-box"><span class="stat-num">6</span><span class="stat-lbl">Tools</span></div>
-      </div>
-    </div>
-
-    <div class="sidebar-card" id="sobre-mi">
-      <p class="sidebar-title">👋 Sobre mí</p>
-      <p class="sobre-mi-text">Soy una persona normal aprendiendo IA en público. Sin título técnico, sin experiencia previa. Solo curiosidad y ganas de entender el mundo que viene.</p>
-      <p class="sobre-mi-text">Basado en Italia. Escribo en español.</p>
-    </div>
-
-  </aside>
-</div>
-
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div>
-      <p class="footer-brand">Aprendiendo con IA</p>
+      <p class="footer-brand">Learning with AI</p>
       <p class="footer-sub">Documentando el aprendizaje, un error a la vez.</p>
     </div>
     <ul class="footer-links">
-      <li><a href="#sobre-mi">Sobre mí</a></li>
-      <li><a href="#posts-list" onclick="showList()">Blog</a></li>
-      <li><a href="#">RSS</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="posts.html">Posts</a></li>
+      <li><a href="about.html">About Me</a></li>
     </ul>
-    <p class="footer-copy">© 2025 — Hecho con curiosidad y Claude</p>
+    <p class="footer-copy">© 2025 — Made with curiosity &amp; Claude</p>
   </div>
 </footer>
 
 <script>
-  // ── GOATCOUNTER VISIT DISPLAY ──
-  // Muestra el conteo de visitas desde GoatCounter
-  // PASO 1: Regístrate en https://www.goatcounter.com
-  // PASO 2: Reemplaza "TUNOMBRE" arriba en el <script> del <head> con tu usuario
-  // PASO 3: En GoatCounter → Settings → API → crea un token
-  // PASO 4: Reemplaza "TUNOMBRE" y "TU_API_TOKEN" abajo
   async function loadVisitCount() {
-    const SITE = 'TUNOMBRE';       // ← tu usuario de goatcounter.com
-    const TOKEN = 'TU_API_TOKEN';  // ← tu token de API de GoatCounter
-
+    const SITE = 'TUNOMBRE';
+    const TOKEN = 'TU_API_TOKEN';
     try {
       const res = await fetch(`https://${SITE}.goatcounter.com/api/v0/stats/total`, {
         headers: { 'Authorization': `Bearer ${TOKEN}` }
@@ -496,43 +107,15 @@
         const data = await res.json();
         const count = data.total || 0;
         document.getElementById('visit-count').textContent = count.toLocaleString('es');
-        document.getElementById('sidebar-visits').textContent = count.toLocaleString('es');
         return;
       }
     } catch(e) {}
-
-    // Fallback a localStorage si la API no está configurada aún
     const key = 'blog-visits-v1';
     const stored = parseInt(localStorage.getItem(key) || '0') + 1;
     localStorage.setItem(key, stored);
     document.getElementById('visit-count').textContent = stored.toLocaleString('es');
-    document.getElementById('sidebar-visits').textContent = stored.toLocaleString('es');
   }
-
   loadVisitCount();
-
-  // ── FILTROS ──
-  function filterPosts(tag, btn) {
-    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.post-card').forEach(card => {
-      card.style.display = (tag === 'todos' || card.dataset.tag === tag) ? 'block' : 'none';
-    });
-  }
-
-  // ── NAVEGACIÓN POSTS ──
-  function openPost(id) {
-    document.getElementById('posts-list').classList.add('hidden');
-    document.querySelectorAll('.post-full').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function showList() {
-    document.querySelectorAll('.post-full').forEach(p => p.classList.remove('active'));
-    document.getElementById('posts-list').classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
 </script>
 </body>
 </html>
